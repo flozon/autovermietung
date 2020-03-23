@@ -1,6 +1,7 @@
 import React from "react";
 import Sidenav from "./sidenav";
 import Cards from './cards'
+import storage from './storage'
 
 class Homepage extends React.Component {
    
@@ -20,7 +21,7 @@ class Homepage extends React.Component {
 
                 </div>
                 <div className="divider"></div>
-                <Cards {...this.props}/>
+                <Cards />
             </div>
 
         );

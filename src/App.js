@@ -5,18 +5,10 @@ import Homepage from './components/homepage'
 import Impressum from './components/impressum'
 import Kontakt from './components/kontakt'
 import NotFound from './components/notfound'
+import Details from './components/details'
+import storage from './components/storage'
 
 class App extends React.Component {
-	constructor() {
-		super();
-		this.state = { site: "homepage" };
-		this.handleState = this.handleState.bind(this);
-	}
-
-	handleState(newState) {
-		this.setState(newState);
-		alert("ouih");
-	}
 
 	render() {
 		return (
@@ -33,10 +25,11 @@ class App extends React.Component {
 					</nav>
 
 					<Switch>
-						<Route exact path="/" render={() => (<Homepage state={this.state} handleState={this.handleState} />)} />
-						<Route path="/homepage" render={() => (<Homepage state={this.state} />)} />
-						<Route path="/impressum" render={() => (<Impressum state={this.state} />)} />
-						<Route path="/contact" render={() => (<Kontakt state={this.state} />)} />
+						<Route exact path="/" component={Homepage} />
+						<Route path="/homepage" component={Homepage} />
+						<Route path="/impressum" component={Impressum} />
+						<Route path="/kontakt" component={Kontakt} />
+						<Route path="/details" component={Details} />
 						<Route component={NotFound} />
 					</Switch>
 
