@@ -34,11 +34,11 @@ class Sidenav extends React.Component {
 
                 <ul id="slide-out" className="sidenav">
 
-                    <li class="no-padding">
-                        <ul class="collapsible collapsible-accordion">
+                    <li className="no-padding">
+                        <ul className="collapsible collapsible-accordion">
                             <li>
-                                <a href="#!" class="collapsible-header ">Sortierung<i class="material-icons">arrow_drop_down</i></a>
-                                <div class="collapsible-body">
+                                <a href="#!" className="collapsible-header ">Sortierung<i className="material-icons">arrow_drop_down</i></a>
+                                <div className="collapsible-body">
                                     <ul>
                                         <li><a href="#!">Preise aufsteigend</a></li>
                                         <li><a href="#!">Preise absteigend</a></li>
@@ -51,10 +51,10 @@ class Sidenav extends React.Component {
                     </li>
                     <li><div className="divider"></div></li>
                     <li >
-                        <ul class="collapsible collapsible-accordion">
+                        <ul className="collapsible collapsible-accordion">
                             <li>
-                                <a href="#!" class="collapsible-header">Marken<i class="material-icons">arrow_drop_down</i></a>
-                                <div class="collapsible-body">
+                                <a href="#!" className="collapsible-header">Marken<i className="material-icons">arrow_drop_down</i></a>
+                                <div className="collapsible-body">
                                     <ul>
                                         <li>
                                             <label>
@@ -77,7 +77,7 @@ class Sidenav extends React.Component {
                 </ul>
 
 
-                <a href="#!" onClick={this.handleClick} class="valign-wrapper">Filter<i className="material-icons">menu</i></a>
+                <a href="#!" onClick={this.handleClick} className="valign-wrapper">Filter<i className="material-icons">menu</i></a>
             </div>
         )
     }

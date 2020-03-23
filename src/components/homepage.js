@@ -1,7 +1,6 @@
 import React from "react";
 import Sidenav from "./sidenav";
 import Cards from './cards'
-import storage from './storage'
 
 class Homepage extends React.Component {
    
@@ -13,9 +12,9 @@ class Homepage extends React.Component {
                         <Sidenav />
                     </div>
                     <div className="col s8 m5 l3 right">
-                        <div class="input-field ">
-                            <i class="material-icons prefix small">search</i>
-                            <input placeholder="Suche" id="first_name" type="text" class="validate " />
+                        <div className="input-field ">
+                            <i className="material-icons prefix small">search</i>
+                            <input placeholder="Suche" id="first_name" type="text" className="validate " />
                         </div>
                     </div>
 

@@ -6,7 +6,6 @@ import Impressum from './components/impressum'
 import Kontakt from './components/kontakt'
 import NotFound from './components/notfound'
 import Details from './components/details'
-import storage from './components/storage'
 
 class App extends React.Component {
 
@@ -16,7 +15,7 @@ class App extends React.Component {
 				<Router>
 					<nav>
 						<div className="nav-wrapper red lighten-3">
-							<a href="#!" className="brand-logo center"><Link to="/">Home</Link></a>
+							<Link className="brand-logo center" to="/">Home</Link>
 							<ul className="right ">
 								<li><Link to="/impressum">Impressum</Link></li>
 								<li><Link to="/contact">Kontakt</Link></li>
