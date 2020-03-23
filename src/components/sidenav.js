@@ -29,7 +29,7 @@ class Sidenav extends React.Component {
 
     render() {
         return (
-            <div id="divFilter">
+            <div>
 
 
                 <ul id="slide-out" className="sidenav">
@@ -58,14 +58,14 @@ class Sidenav extends React.Component {
                                     <ul>
                                         <li>
                                             <label>
-                                                
+
                                                 <input type="checkbox" />
                                                 <span>Volkswagen</span>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                            <input type="checkbox" />
+                                                <input type="checkbox" />
                                                 <span>Audi</span>
                                             </label>
                                         </li>
@@ -76,8 +76,10 @@ class Sidenav extends React.Component {
                     </li>
                 </ul>
 
+                <div className="center">
+                    <a href="#!" onClick={this.handleClick} ><i className="material-icons medium black-text" id="filter">menu</i></a>
+                </div>
 
-                <a href="#!" onClick={this.handleClick} className="valign-wrapper">Filter<i className="material-icons">menu</i></a>
             </div>
         )
     }

@@ -4,16 +4,26 @@
   margin-bottom: 0em;
 }
 
-#divFilter{
-  height: 100%;
-}
-
 .carousel{
-  margin-top: 1em;
-  height: 20em !important;
+  margin-top: 1.5em;
+  margin-bottom: 0,5em;
+  height: 25em !important;
 }
 
 .imageSlider{
   width: auto !important; 
-  height: 20em !important;
+  height: 25em !important;
+}
+
+#filter{
+  margin-top: 5%;
+}
+
+#searchField{
+  margin-top: 4%;
+  margin-bottom: 0;
+}
+
+#firstName{
+  margin-bottom: 0 !important;
 }

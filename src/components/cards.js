@@ -14,7 +14,7 @@ class Cards extends React.Component {
 
                         </div>
                         <div className="card-action center">
-                            <span className="card-title">Card Title</span>
+                            <span className="card-title">VW Touran</span>
 
                         </div>
 
