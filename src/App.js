@@ -14,7 +14,7 @@ class App extends React.Component {
 			<div className="App">
 				<Router>
 					<nav>
-						<div className="nav-wrapper red lighten-3">
+						<div className="nav-wrapper red lighten-3" id="navbar">
 							<Link className="brand-logo center" to="/">Home</Link>
 							<ul className="right ">
 								<li><Link to="/impressum">Impressum</Link></li>

@@ -27,3 +27,21 @@
 #firstName{
   margin-bottom: 0 !important;
 }
+
+#divDetails{
+  border-right-width: 5px !important;
+  border-right-color: black;
+}
+
+#calendar{
+  overflow-y: scroll;
+  height: 92vh;
+}
+
+.calendarCol{
+  width: (100 / 7);
+}
+
+#navbar{
+  height: 6vh !important;
+}

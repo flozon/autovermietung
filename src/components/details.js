@@ -2,11 +2,22 @@ import React from "react";
 import M from 'materialize-css'
 import axios from 'axios';
 import Calendar from './calendar'
+import storage from './storage'
 
 class Details extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            loaded: false,
+            numberImages: 3
+        }
+        this.handlePages = this.handlePages.bind(this);
+    }
+
     async componentDidMount() {
-        var carouselInstance = M.Carousel.init(document.querySelectorAll('.carousel'), { fullWidth: true });
+        var carouselInstance = M.Carousel.init(document.getElementById("carousel"), { fullWidth: true });
         this.setState({
+            loaded: true,
             carousel: carouselInstance
         });
         /*let res = await axios.post('http://localhost:5000/cars/add', { name: "blabla" });
@@ -15,11 +26,59 @@ class Details extends React.Component {
         console.log(res.data);
     }
 
+    handlePages(e) {
+        if (this.state.loaded) {
+            const action = parseInt(e.target.title);
+            if (action === -1) {
+                if (storage.currentPage === 0) {
+                    storage.currentPage = this.state.numberImages - 1;
+                } else {
+                    storage.currentPage--;
+                }
+            } else if (action === -2) {
+                if (storage.currentPage === this.state.numberImages - 1) {
+                    storage.currentPage = 0;
+                } else {
+                    storage.currentPage++;
+                }
+            } else {
+                storage.currentPage = action;
+            }
+
+            this.state.carousel.set(storage.currentPage);
+        }
+
+    }
+
+    handleHighlight(index) {
+
+        if (index === storage.currentPage) {
+            return "active";
+        } else {
+            return "";
+        }
+    }
+
+    createPagination(number) {
+        console.log(storage.currentPage);
+        let pages = [];
+        for (let i = 0; i < number; i++) {
+            pages.push(<li class={this.handleHighlight(i)}><a href="#!" onClick={this.handlePages} title={i}>{i + 1}</a></li>)
+        }
+        return (
+            <ul class="pagination center">
+                <li class=""><a href="#!"><i class="material-icons" onClick={this.handlePages} title={-1}>chevron_left</i></a></li>
+                {pages}
+                <li class=""><a href="#!"><i class="material-icons" onClick={this.handlePages} title={-2}>chevron_right</i></a></li>
+            </ul>
+        );
+    }
+
     render() {
         return (
             <div className="row">
-                <div className="col s12 m8 l9">
-                    <div className="carousel carousel-slider center">
+                <div className="col s12 m8 l9" id="divDetails">
+                    <div className="carousel carousel-slider center" id="carousel">
                         <a className="carousel-item" href="#one!">
                             <img className="imageSlider responsive-img" src="https://i.auto-bild.de/mdb/extra_large/43/touran-73f.png" alt="bild1" />
                         </a>
@@ -31,16 +90,8 @@ class Details extends React.Component {
                         </a>
                     </div>
 
-                    <ul class="pagination center">
-                        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                        <li class="active"><a href="#!">1</a></li>
-                        <li class="waves-effect"><a href="#!">2</a></li>
-                        <li class="waves-effect"><a href="#!">3</a></li>
-                        <li class="waves-effect"><a href="#!">4</a></li>
-                        <li class="waves-effect"><a href="#!">5</a></li>
-                        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-                    </ul>
-                    
+                    {this.createPagination(this.state.numberImages)}
+
                     <div className="divider"></div>
 
                     <h4 class="center">VW Touran</h4>
@@ -69,7 +120,7 @@ class Details extends React.Component {
                     </div>
 
                 </div>
-                <div className="col 12 m4 l3">
+                <div className="col 12 m4 l3" id="calendar">
                     <Calendar />
                 </div>
             </div>
