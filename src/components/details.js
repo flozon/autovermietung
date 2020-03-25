@@ -29,29 +29,29 @@ class Details extends React.Component {
 
     handlePages(e) {
         if (this.state.loaded) {
-            const action = parseInt(e.target.title);
+            const action = parseInt(e.target.id);
             let newImage;
             switch (action) {
                 case -1:
                     if (this.state.currentImage === 0) {
                         newImage = this.state.numberImages - 1;
                     } else {
-                        newImage = this.state.currentImages - 1;
+                        newImage = this.state.currentImage - 1;
                     }
                     break;
                 case -2:
                     if (this.state.currentImage === this.state.numberImages - 1) {
                         newImage = 0;
                     } else {
-                        newImage = this.state.numberImages + 1;
+                        newImage = this.state.currentImage + 1;
                     }
                     break;
                 default: newImage = action;
             }
-
+            
             this.setState({currentImage: newImage})
-
-            this.state.carousel.set(this.state.currentImage);
+            
+            this.state.carousel.set(newImage);
         }
 
     }
@@ -67,13 +67,13 @@ class Details extends React.Component {
     createPagination(number) {
         let pages = [];
         for (let i = 0; i < number; i++) {
-            pages.push(<li class={this.handleHighlight(i)}><p className="a" href={void (0)} onClick={this.handlePages} title={i}>{i + 1}</p></li>)
+            pages.push(<li class={this.handleHighlight(i)}><p className="a" onClick={this.handlePages} id={i}>{i + 1}</p></li>)
         }
         return (
             <ul class="pagination center">
-                <li class=""><p className="a"><i class="material-icons" onClick={this.handlePages} title={-1}>chevron_left</i></p></li>
+                <li class=""><p className="a"><i class="material-icons" onClick={this.handlePages} id={-1}>chevron_left</i></p></li>
                 {pages}
-                <li class=""><p className="a"><i class="material-icons" onClick={this.handlePages} title={-2}>chevron_right</i></p></li>
+                <li class=""><p className="a"><i class="material-icons" onClick={this.handlePages} id={-2}>chevron_right</i></p></li>
             </ul>
         );
     }

@@ -58,9 +58,9 @@ class Calendar extends React.Component {
     render() {
         return (
             <div>
+                {this.createMonth(0)}
                 {this.createMonth(1)}
                 {this.createMonth(2)}
-                {this.createMonth(3)}
             </div>
 
         )

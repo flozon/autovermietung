@@ -18,7 +18,7 @@ class App extends React.Component {
 							<Link className="brand-logo center" to="/">Home</Link>
 							<ul className="right ">
 								<li><Link to="/impressum">Impressum</Link></li>
-								<li><Link to="/contact">Kontakt</Link></li>
+								<li><Link to="/kontakt">Kontakt</Link></li>
 							</ul>
 						</div>
 					</nav>
