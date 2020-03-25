@@ -45,3 +45,10 @@
 #navbar{
   height: 6vh !important;
 }
+
+.a{
+  cursor: pointer;
+  user-select: None;
+  margin: 0 !important;
+  @extend a;
+}

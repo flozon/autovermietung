@@ -37,13 +37,13 @@ class Sidenav extends React.Component {
                     <li className="no-padding">
                         <ul className="collapsible collapsible-accordion">
                             <li>
-                                <a href="#!" className="collapsible-header ">Sortierung<i className="material-icons">arrow_drop_down</i></a>
+                                <p className="collapsible-header a">Sortierung<i className="material-icons">arrow_drop_down</i></p>
                                 <div className="collapsible-body">
                                     <ul>
-                                        <li><a href="#!">Preise aufsteigend</a></li>
-                                        <li><a href="#!">Preise absteigend</a></li>
-                                        <li><a href="#!">Alter aufsteigend</a></li>
-                                        <li><a href="#!">Alter absteigend</a></li>
+                                        <li><p class="a">Preise aufsteigend</p></li>
+                                        <li><p class="a">Preise absteigend</p></li>
+                                        <li><p class="a">Alter aufsteigend</p></li>
+                                        <li><p class="a">Alter absteigend</p></li>
                                     </ul>
                                 </div>
                             </li>
@@ -53,7 +53,7 @@ class Sidenav extends React.Component {
                     <li >
                         <ul className="collapsible collapsible-accordion">
                             <li>
-                                <a href="#!" className="collapsible-header">Marken<i className="material-icons">arrow_drop_down</i></a>
+                                <p className="collapsible-header a">Marken<i className="material-icons">arrow_drop_down</i></p>
                                 <div className="collapsible-body">
                                     <ul>
                                         <li>

@@ -9,7 +9,8 @@ class Details extends React.Component {
         super();
         this.state = {
             loaded: false,
-            numberImages: 3
+            numberImages: 3,
+            currentImage: 0
         }
         this.handlePages = this.handlePages.bind(this);
     }
@@ -29,30 +30,34 @@ class Details extends React.Component {
     handlePages(e) {
         if (this.state.loaded) {
             const action = parseInt(e.target.title);
-            if (action === -1) {
-                if (storage.currentPage === 0) {
-                    storage.currentPage = this.state.numberImages - 1;
-                } else {
-                    storage.currentPage--;
-                }
-            } else if (action === -2) {
-                if (storage.currentPage === this.state.numberImages - 1) {
-                    storage.currentPage = 0;
-                } else {
-                    storage.currentPage++;
-                }
-            } else {
-                storage.currentPage = action;
+            let newImage;
+            switch (action) {
+                case -1:
+                    if (this.state.currentImage === 0) {
+                        newImage = this.state.numberImages - 1;
+                    } else {
+                        newImage = this.state.currentImages - 1;
+                    }
+                    break;
+                case -2:
+                    if (this.state.currentImage === this.state.numberImages - 1) {
+                        newImage = 0;
+                    } else {
+                        newImage = this.state.numberImages + 1;
+                    }
+                    break;
+                default: newImage = action;
             }
 
-            this.state.carousel.set(storage.currentPage);
+            this.setState({currentImage: newImage})
+
+            this.state.carousel.set(this.state.currentImage);
         }
 
     }
 
     handleHighlight(index) {
-
-        if (index === storage.currentPage) {
+        if (index === this.state.currentImage) {
             return "active";
         } else {
             return "";
@@ -60,16 +65,15 @@ class Details extends React.Component {
     }
 
     createPagination(number) {
-        console.log(storage.currentPage);
         let pages = [];
         for (let i = 0; i < number; i++) {
-            pages.push(<li class={this.handleHighlight(i)}><a href="#!" onClick={this.handlePages} title={i}>{i + 1}</a></li>)
+            pages.push(<li class={this.handleHighlight(i)}><p className="a" href={void (0)} onClick={this.handlePages} title={i}>{i + 1}</p></li>)
         }
         return (
             <ul class="pagination center">
-                <li class=""><a href="#!"><i class="material-icons" onClick={this.handlePages} title={-1}>chevron_left</i></a></li>
+                <li class=""><p className="a"><i class="material-icons" onClick={this.handlePages} title={-1}>chevron_left</i></p></li>
                 {pages}
-                <li class=""><a href="#!"><i class="material-icons" onClick={this.handlePages} title={-2}>chevron_right</i></a></li>
+                <li class=""><p className="a"><i class="material-icons" onClick={this.handlePages} title={-2}>chevron_right</i></p></li>
             </ul>
         );
     }
@@ -79,15 +83,15 @@ class Details extends React.Component {
             <div className="row">
                 <div className="col s12 m8 l9" id="divDetails">
                     <div className="carousel carousel-slider center" id="carousel">
-                        <a className="carousel-item" href="#one!">
+                        <p className="carousel-item" href="#one!">
                             <img className="imageSlider responsive-img" src="https://i.auto-bild.de/mdb/extra_large/43/touran-73f.png" alt="bild1" />
-                        </a>
-                        <a className="carousel-item" href="#two!">
+                        </p>
+                        <p className="carousel-item" href="#two!">
                             <img className="imageSlider responsive-img" src="https://www.adac.de/_ext/itr/tests/GWInfo/GW0373_VW_Touran_ab_2015_Diesel.jpg" alt="bild2" />
-                        </a>
-                        <a className="carousel-item" href="#three!">
+                        </p>
+                        <p className="carousel-item" href="#three!">
                             <img className="imageSlider responsive-img" src="https://news.meinauto.de/vw_touran_2015_ausen_vorne.jpg" alt="bild3" />
-                        </a>
+                        </p>
                     </div>
 
                     {this.createPagination(this.state.numberImages)}

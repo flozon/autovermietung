@@ -6,7 +6,9 @@ class Calendar extends React.Component {
 
     createMonth = (future) => {
         var date = new Date();
-        date.setMonth((date.getMonth() + future) % 12)
+
+        date.setFullYear((date.getFullYear()) + parseInt((date.getMonth() + future) / 12));
+        date.setMonth((date.getMonth() + future) % 12);
         const currentMonth = date.getMonth();
 
         let month = []
@@ -15,7 +17,7 @@ class Calendar extends React.Component {
         let tableBody = []
 
         for (let i = 0; i < 7; i++) {
-            tableHead.push(<th>{storage.lang[0].days[i]}</th>)
+            tableHead.push(<th className="tableCalendar">{storage.lang[0].days[i]}</th>)
         }
         table.push(<thead><tr>{tableHead}</tr></thead>);
 
@@ -37,9 +39,12 @@ class Calendar extends React.Component {
             iDate.setDate(iDate.getDate() + 1);
         }
 
-        for (let i = ((iDate.getDay() + 6) % 7); i < 7; i++) {
-            week.push(<td></td>);
+        if(((iDate.getDay() + 6) % 7) !== 0){
+            for (let i = ((iDate.getDay() + 6) % 7); i < 7; i++) {
+                week.push(<td></td>);
+            }
         }
+        
         tableBody.push(<tr>{week}</tr>);
         table.push(<tbody>{tableBody}</tbody>);
 
@@ -53,9 +58,9 @@ class Calendar extends React.Component {
     render() {
         return (
             <div>
-                {this.createMonth(0)}
                 {this.createMonth(1)}
                 {this.createMonth(2)}
+                {this.createMonth(3)}
             </div>
 
         )
