@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import M from 'materialize-css';
 
 class Admin_Page extends React.Component {
     constructor() {
@@ -7,12 +8,10 @@ class Admin_Page extends React.Component {
         this.handleChanges = this.handleChanges.bind(this);
         this.submit = this.submit.bind(this);
         this.state = {
-
-            add_name: "",
-            add_description: "",
-            add_datasheet_power: "",
-            add_datasheet_age: ""
-
+            add_name: "dsfg",
+            add_description: "sdfg",
+            add_datasheet_power: "234",
+            add_datasheet_age: "12",
         }
     }
 
@@ -24,46 +23,54 @@ class Admin_Page extends React.Component {
             })
         } else {
             this.setState({
-
                 [item.id]: item.value
-
             })
         }
     }
 
-    getBinary(file) {
-        return new Promise((resolve, reject) => {
-            let reader = new FileReader();
-
-            reader.onload = () => {
-                resolve(reader.result);
-            };
-
-            reader.onerror = reject;
-
-            reader.readAsBinaryString(file);
-        })
-    }
-
     async submit() {
-        const data = new FormData();
-        for (let prop in this.state) {
-            if (Array.isArray(this.state[prop])) {
-                this.state[prop].forEach(ele => {
-                    data.append(prop, ele);
-                });
-            } else {
-                data.append(prop, this.state[prop]);
+        if (!this.state.add_additional_picture || !this.state.add_main_picture) {
+            M.toast({ html: "please set one main picture and at least one additional picture" });
+            return;
+        }
+        for(let prop in this.state){
+            if(this.state[prop] === ""){
+                M.toast({ html: "please set all attributes" });
+                return;
             }
         }
-        /*console.log(data);
-        //data.append('add_main_picture', this.state.add_main_picture[0])
-        /*const files = { additional: [] };
 
-        files.main = await this.getBinary(this.state.add_main_picture[0]);
-        for (let i = 0; i < this.state.add_additional_picture.length; i++) {
-            files.additional[i] = await this.getBinary(this.state.add_additional_picture[i]);
-        }*/
+        const add = this.state.add_additional_picture;
+        const main = this.state.add_main_picture;
+
+        add.forEach(ele => {
+            if (ele.name === main[0].name) {
+                M.toast({ html: "duplicate image " + ele.name });
+                return;
+            }
+            if ('image/jpeg' !== ele.type) {
+                M.toast({ html: "only support jpg " + ele.name });
+                return;
+            }
+        });
+        if ('image/jpeg' !== main[0].type) {
+            M.toast({ html: "only support jpg " + main[0].name });
+            return;
+        }   
+
+        const data = new FormData();
+
+        for (let prop in this.state) {
+            if (!Array.isArray(this.state[prop])) {
+                data.append([prop], this.state[prop]);
+         
+            }
+        }
+
+        const addImages = (tag, images) => images.forEach(ele => data.append(tag, ele));
+
+        addImages('main_picture', main);
+        addImages('add_picture', add);
 
         let res = await axios.post("http://localhost:5000/cars/add", data);
         console.log(res);

@@ -4,14 +4,11 @@ const Schema = mongoose.Schema;
 
 const carSchema = new Schema({
   name: String,
-  /*description: String,
-  price: Number,
-  images: [String],
-  props:{
-      ps: Number,
-      doors: Number,
-      age: Number,
-  }*/
+  description: String,
+  power: Number,
+  age: Number,
+  main_picture: String,
+  add_picture: [String]
 }, { timestamps: true });
 
 const Car = mongoose.model('Car', carSchema);
