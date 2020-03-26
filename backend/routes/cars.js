@@ -1,6 +1,7 @@
 const router = require('express').Router();
-let Car = require('../models');
+const Car = require('../models');
 const multer = require('multer');
+const sharp = require('sharp');
 
 router.route('/').get((req, res) => {
   Car.find()
@@ -14,21 +15,28 @@ const uuid = () => {
     return s ? "-" + p.substr(0, 4) + "-" + p.substr(4, 4) : p;
   }
   return _p8() + _p8(true) + _p8(true) + _p8();
+};
+
+const resize = (images) => {
+  images.forEach(ele => {
+    sharp("../public/images/temp/" + ele.filename).resize({ height: 500, width: null }).toFile("../public/images/" + ele.filename);
+  });
 }
 
 const storage = multer.diskStorage({
-  destination: '../images',
+  destination: '../public/images/temp',
   filename: function (req, file, cb) {
     cb(null, uuid() + ".jpg");
   }
-})
+});
 
-const upload = multer({ storage }).fields([{ name: 'main_picture' }, { name: 'add_picture' }])
+const upload = multer({ storage }).fields([{ name: 'main_picture' }, { name: 'add_picture' }]);
 
 router.route('/add').post(upload, (req, res) => {
+  resize(req.files['main_picture']);
+  resize(req.files['add_picture']);
 
   const data = req.body;
-  console.log(data)
   const newCar = new Car({
     name: String(data.add_name),
     description: String(data.add_description),

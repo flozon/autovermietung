@@ -3,28 +3,24 @@ import M from 'materialize-css'
 import axios from 'axios';
 import Calendar from './calendar'
 import storage from './storage'
+import { Redirect } from 'react-router-dom'
 
 class Details extends React.Component {
     constructor() {
         super();
         this.state = {
             loaded: false,
-            numberImages: 3,
-            currentImage: 0
         }
         this.handlePages = this.handlePages.bind(this);
     }
 
     async componentDidMount() {
-        var carouselInstance = M.Carousel.init(document.getElementById("carousel"), { fullWidth: true});
+        var carouselInstance = M.Carousel.init(document.getElementById("carousel"), { fullWidth: true });
         this.setState({
             loaded: true,
-            carousel: carouselInstance
+            carousel: carouselInstance,
+            currentImage: 0,
         });
-        /*let res = await axios.post('http://localhost:5000/cars/add', { name: "blabla" });
-        console.log(res.data);*/
-        let res = await axios.get('http://localhost:5000/cars/');
-        console.log(res.data);
     }
 
     handlePages(e) {
@@ -34,13 +30,13 @@ class Details extends React.Component {
             switch (action) {
                 case -1:
                     if (this.state.currentImage === 0) {
-                        newImage = this.state.numberImages - 1;
+                        newImage = storage.car.numberImages - 1;
                     } else {
-                        newImage = this.state.currentImage - 1;
+                        newImage = storage.car.currentImage - 1;
                     }
                     break;
                 case -2:
-                    if (this.state.currentImage === this.state.numberImages - 1) {
+                    if (this.state.currentImage === storage.car.numberImages - 1) {
                         newImage = 0;
                     } else {
                         newImage = this.state.currentImage + 1;
@@ -48,9 +44,9 @@ class Details extends React.Component {
                     break;
                 default: newImage = action;
             }
-            
-            this.setState({currentImage: newImage})
-            
+
+            this.setState({ currentImage: newImage })
+
             this.state.carousel.set(newImage);
         }
 
@@ -64,9 +60,9 @@ class Details extends React.Component {
         }
     }
 
-    createPagination(number) {
+    createPagination() {
         let pages = [];
-        for (let i = 0; i < number; i++) {
+        for (let i = 0; i < storage.car.numberImages; i++) {
             pages.push(<li class={this.handleHighlight(i)}><p className="a" onClick={this.handlePages} id={i}>{i + 1}</p></li>)
         }
         return (
@@ -78,32 +74,46 @@ class Details extends React.Component {
         );
     }
 
+    renderCarousel() {
+        const items = [];
+        items.push(
+            <p className="carousel-item">
+                <img className="imageSlider responsive-img" src={process.env.PUBLIC_URL + "/images/" + storage.car.main_picture} alt="Bild" />
+            </p>
+        );
+        storage.car.add_picture.forEach(ele => {
+            items.push(
+                <p className="carousel-item">
+                    <img className="imageSlider responsive-img" src={process.env.PUBLIC_URL + "/images/" + ele} alt="Bild" />
+                </p>
+            );
+        });
+
+        return (
+            <div className="carousel carousel-slider center" id="carousel">
+                {items}
+            </div>
+        );
+    }
     render() {
+        if (!storage.car) {
+            return <Redirect to="/" />
+        }
         return (
             <div className="row">
                 <div className="col s12 m8 l9" id="divDetails">
-                    <div className="carousel carousel-slider center" id="carousel">
-                        <p className="carousel-item" href="#one!">
-                            <img className="imageSlider responsive-img" onDragend={this.re} src="https://i.auto-bild.de/mdb/extra_large/43/touran-73f.png" alt="bild1" />
-                        </p>
-                        <p className="carousel-item" href="#two!">
-                            <img className="imageSlider responsive-img" src="https://www.adac.de/_ext/itr/tests/GWInfo/GW0373_VW_Touran_ab_2015_Diesel.jpg" alt="bild2" />
-                        </p>
-                        <p className="carousel-item" href="#three!">
-                            <img className="imageSlider responsive-img" src="https://news.meinauto.de/vw_touran_2015_ausen_vorne.jpg" alt="bild3" />
-                        </p>
-                    </div>
 
-                    {this.createPagination(this.state.numberImages)}
+                    {this.renderCarousel()}
+                    {this.createPagination()}
 
                     <div className="divider"></div>
 
-                    <h4 class="center">VW Touran</h4>
+                    <h4 class="center">{storage.car.name}</h4>
 
                     <div class="card" id="descriptionCard">
                         <div class="card-content">
                             <span class="card-title">Beschreibung</span>
-                            <p>blablablablablablablablalbalbalblablabl</p>
+                            <p>{storage.car.description}</p>
                         </div>
 
                     </div>
@@ -113,10 +123,18 @@ class Details extends React.Component {
                             <span class="card-title">Datenblatt</span>
                             <div className="row">
                                 <div className="col s4 l3">
-                                    <strong>Preis</strong>
+                                    <strong>Leistung</strong>
                                 </div>
                                 <div className="col s8 l9">
-                                    <p>120 Euro/Tag</p>
+                                    <p>{storage.car.power}</p>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col s4 l3">
+                                    <strong>Alter</strong>
+                                </div>
+                                <div className="col s8 l9">
+                                    <p>{storage.car.age}</p>
                                 </div>
                             </div>
                         </div>

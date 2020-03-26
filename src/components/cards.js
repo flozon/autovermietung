@@ -1,29 +1,21 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 class Cards extends React.Component {
-    
+    handleClick = () => {
+        this.props.toCar(this.props.car);
+    }
+
     render() {
         return (
-            <div className="row">
-                <div className="col s6 m4 l3">
-                    <Link to="/details">
-                    <div className="card">
-                        <div className="card-image">
-                            <img src="https://i.auto-bild.de/mdb/extra_large/43/touran-73f.png" alt="Bild" />
-
-                        </div>
-                        <div className="card-action center">
-                            <span className="card-title">VW Touran</span>
-
-                        </div>
-
-
-                    </div>
-                    </Link>
+            <div name={this.props.car._id} className="card a" onClick={this.handleClick}>
+                <div className="card-image">
+                    <img src={process.env.PUBLIC_URL + "/images/" + this.props.car.main_picture} alt="Bild" />
+                </div>
+                <div className="card-action center">
+                    <span className="card-title">{this.props.car.name}</span>
                 </div>
             </div>
-        )
+        );
     }
 }
 
