@@ -9,6 +9,7 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+
 const carsRouter = require('./routes/cars');
 app.use('/cars', carsRouter);
 

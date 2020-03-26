@@ -6,6 +6,8 @@ import Impressum from './components/impressum'
 import Kontakt from './components/kontakt'
 import NotFound from './components/notfound'
 import Details from './components/details'
+import Admin_Page from './components/admin_page'
+import Add_Car from './components/add_car'
 
 class App extends React.Component {
 
@@ -29,6 +31,8 @@ class App extends React.Component {
 						<Route path="/impressum" component={Impressum} />
 						<Route path="/kontakt" component={Kontakt} />
 						<Route path="/details" component={Details} />
+						<Route path="/admin" component={Admin_Page} />
+						<Route path="/add_car" component={Add_Car} />
 						<Route component={NotFound} />
 					</Switch>
 

@@ -12,6 +12,7 @@
 /build
 
 /backend/node_modules
+/backend/images
 
 # misc
 .DS_Store

@@ -16,7 +16,7 @@ class Details extends React.Component {
     }
 
     async componentDidMount() {
-        var carouselInstance = M.Carousel.init(document.getElementById("carousel"), { fullWidth: true });
+        var carouselInstance = M.Carousel.init(document.getElementById("carousel"), { fullWidth: true});
         this.setState({
             loaded: true,
             carousel: carouselInstance
@@ -70,7 +70,7 @@ class Details extends React.Component {
             pages.push(<li class={this.handleHighlight(i)}><p className="a" onClick={this.handlePages} id={i}>{i + 1}</p></li>)
         }
         return (
-            <ul class="pagination center">
+            <ul class="pagination center hide-on-med-and-down">
                 <li class=""><p className="a"><i class="material-icons" onClick={this.handlePages} id={-1}>chevron_left</i></p></li>
                 {pages}
                 <li class=""><p className="a"><i class="material-icons" onClick={this.handlePages} id={-2}>chevron_right</i></p></li>
@@ -84,7 +84,7 @@ class Details extends React.Component {
                 <div className="col s12 m8 l9" id="divDetails">
                     <div className="carousel carousel-slider center" id="carousel">
                         <p className="carousel-item" href="#one!">
-                            <img className="imageSlider responsive-img" src="https://i.auto-bild.de/mdb/extra_large/43/touran-73f.png" alt="bild1" />
+                            <img className="imageSlider responsive-img" onDragend={this.re} src="https://i.auto-bild.de/mdb/extra_large/43/touran-73f.png" alt="bild1" />
                         </p>
                         <p className="carousel-item" href="#two!">
                             <img className="imageSlider responsive-img" src="https://www.adac.de/_ext/itr/tests/GWInfo/GW0373_VW_Touran_ab_2015_Diesel.jpg" alt="bild2" />
